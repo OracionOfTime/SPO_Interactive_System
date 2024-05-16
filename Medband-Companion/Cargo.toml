@@ -1,0 +1,50 @@
+[package]
+name = "medband_companion"
+version = "0.1.0"
+authors = ["Joschua Loth <joschua.loth@adesso.de>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = "0.3"
+sir = { version = "0.3.0", features = ["dioxus"] }
+log = "0.4.6"
+enum-iterator = "1.4.1"
+
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+dioxus-web = "0.3"
+wasm-logger = "0.2.0"
+console_error_panic_hook = "0.1.7"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+dioxus-desktop = { version = "0.3.0", features = ["hot-reload"] }
+serialport = "4.2.1"
+
+
+[profile.dev]
+opt-level = 0
+debug = true
+lto = false
+debug-assertions = true
+incremental = true
+overflow-checks = true
+
+[profile.release]
+opt-level = "z"
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+panic = 'unwind'
+incremental = false
+overflow-checks = false
+codegen-units = 1
+
+
+
+
+
+
+
